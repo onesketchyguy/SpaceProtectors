@@ -18,6 +18,13 @@ public class MainMenuManager : MonoBehaviour
         MenuPanel.SetActive(false);
     }
 
+    public void QuitGame()
+    {
+        MenuPanel.SetActive(false);
+
+        Application.Quit();
+    }
+
     public void OpenMainMenu()
     {
         MenuPanel.SetActive(true);

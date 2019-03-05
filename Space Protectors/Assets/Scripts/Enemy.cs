@@ -54,6 +54,15 @@ public class Enemy : MonoBehaviour
             GetComponentInParent<EnemyFormation>().Formation.Remove(transform);
         }
 
+        int i = Random.Range(0, 20);
+
+        if (i >= 17)
+        {
+            GameObject powerup = FindObjectOfType<PickUpManager>().GetPowerUp();
+
+            powerup.transform.position = transform.position;
+        }
+
         Destroy(gameObject);
     }
 }

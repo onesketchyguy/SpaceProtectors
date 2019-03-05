@@ -9,6 +9,8 @@ public class NameManager : MonoBehaviour
 
     public int maxCharacters = 3;
 
+    public int minCharacters = 3;
+
     void Update()
     {
         if (nameInputed.ToCharArray().Length < maxCharacters)
@@ -21,9 +23,23 @@ public class NameManager : MonoBehaviour
             nameInputed = BackSpace(nameInputed);
         }
 
-        inputName.text = $"{nameInputed} : {FindObjectOfType<ScoreKeeper>().score}";
+        string finalString = "";
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        for (int i = 0; i < maxCharacters; i++)
+        {
+            if (nameInputed.ToCharArray().Length - 1 >= i)
+            {
+                finalString += nameInputed.ToCharArray()[i];
+            }
+            else
+            {
+                finalString += "-";
+            }
+        }
+
+        inputName.text = $"{finalString} : {FindObjectOfType<ScoreKeeper>().score}";
+
+        if (Input.GetKeyDown(KeyCode.Return) && nameInputed.ToCharArray().Length >= minCharacters)
         {
             FindObjectOfType<GameOverManager>().NameInputed(nameInputed);
         }

@@ -7,9 +7,9 @@ public class ScoreKeeper : MonoBehaviour
 
     public int score { get; private set; }
 
-    private void Start()
+    private void OnEnable()
     {
-        AddScore(0);
+        ScoreTextObject.text = $"{score}";
     }
 
     public void AddScore(int scoreToAdd)

@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
 
+    public LivesCounter livesCounter;
+
     private void Awake()
     {
         float dist = Camera.main.transform.position.z;
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemyFormation);
         }
+
+        livesCounter.UpdateLivesCount(lives);
     }
 
     public void StartGame()

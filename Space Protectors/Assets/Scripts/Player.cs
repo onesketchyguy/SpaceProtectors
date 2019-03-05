@@ -8,7 +8,11 @@ public class Player : MonoBehaviour
 
     public float shotVelocity = 10;
 
-    public GameObject shot;
+    public GameObject DefaultShot;
+
+    internal GameObject shot;
+
+    public float timeSinceGotShot = -1;
 
     float minX, maxX;
 
@@ -22,10 +26,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             //Shoot a shot.
-            if (shot)
-            {
-                InvokeRepeating("Shoot", 0, shootSpeed);
-            }
+            InvokeRepeating("Shoot", 0, shootSpeed);
         }
 
         if (Input.GetButtonUp("Fire1"))
@@ -49,6 +50,11 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
+        if (timeSinceGotShot < Time.time)
+        {
+            shot = DefaultShot;
+        }
+
         GameObject obj = Instantiate(shot, transform.position + transform.up * 1.2f, Quaternion.identity) as GameObject;
 
         obj.GetComponent<Shot>().AddVelocity(shotVelocity);
