@@ -22,6 +22,18 @@ public class ScoreKeeper : MonoBehaviour
 
         score += scoreToAdd;
 
+        UpdateScoreText();
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
+
+        UpdateScoreText();
+    }
+
+    void UpdateScoreText()
+    {
         if (ScoreTextObject != null)
         {
             ScoreTextObject.text = $"{score}";

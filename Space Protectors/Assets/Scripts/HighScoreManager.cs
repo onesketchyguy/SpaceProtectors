@@ -12,7 +12,7 @@ public class HighScoreManager : MonoBehaviour
     private int maxScores = 20;
 
     [System.Serializable]
-    public class PlayerScore : IComparable<PlayerScore>
+    public struct PlayerScore : IComparable<PlayerScore>
     {
         public string name;
 
@@ -26,7 +26,7 @@ public class HighScoreManager : MonoBehaviour
             }
             else if (other.score == score)
             {
-                return 0;
+                return 1;
             }
 
             return 1;

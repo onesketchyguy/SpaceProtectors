@@ -101,5 +101,7 @@ public class GameManager : MonoBehaviour
         int currentScene = SceneManager.GetActiveScene().buildIndex;
 
         SceneManager.LoadScene(currentScene);
+
+        FindObjectOfType<ScoreKeeper>().ResetScore();
     }
 }
