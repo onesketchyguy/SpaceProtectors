@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80890c65482b4146a8486c8e33cb296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shots: 2
   movespeed: 8
   shootSpeed: 0.2
   shotVelocity: 10

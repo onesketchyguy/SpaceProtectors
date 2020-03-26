@@ -10,8 +10,6 @@ public class Enemy : MonoBehaviour
 
     public float shotVelocity = 10;
 
-    public GameObject shot;
-
     private Health health => GetComponent<Health>() ?? gameObject.AddComponent<Health>();
 
     private void Start()
@@ -22,10 +20,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         //Shoot a shot.
-        if (shot)
-        {
-            Shoot();
-        }
+        Shoot();
 
         if (health.isDead)
         {
@@ -37,7 +32,8 @@ public class Enemy : MonoBehaviour
     {
         if (Time.time - shootSpeed > lastShot)
         {
-            GameObject obj = Instantiate(shot, transform.position + -transform.up * 1.2f, Quaternion.identity) as GameObject;
+            GameObject obj = ObjectPool.instance.GetBullet();
+            obj.transform.position = transform.position + -transform.up * 1.2f;
 
             obj.GetComponent<Shot>().AddVelocity(-shotVelocity);
 
@@ -45,7 +41,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
         FindObjectOfType<ScoreKeeper>().AddScore(scoreToAddOnDeath);
 

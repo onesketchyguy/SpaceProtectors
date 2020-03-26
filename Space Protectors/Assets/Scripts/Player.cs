@@ -14,9 +14,14 @@ public class Player : MonoBehaviour
 
     public float timeSinceGotShot = -1;
 
-    float minX, maxX;
+    private float minX, maxX;
 
-    private Health health => GetComponent<Health>() ?? gameObject.AddComponent<Health>();
+    private Health health;
+
+    private void Start()
+    {
+        health = GetComponent<Health>() ?? gameObject.AddComponent<Health>();
+    }
 
     private void Update()
     {
@@ -26,12 +31,12 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             //Shoot a shot.
-            InvokeRepeating("Shoot", 0, shootSpeed);
+            InvokeRepeating(nameof(Shoot), 0, shootSpeed);
         }
 
         if (Input.GetButtonUp("Fire1"))
         {
-            CancelInvoke("Shoot");
+            CancelInvoke(nameof(Shoot));
         }
 
         float movX = (Input.GetAxisRaw("Horizontal") * movespeed) * Time.deltaTime;
@@ -55,15 +60,15 @@ public class Player : MonoBehaviour
             shot = DefaultShot;
         }
 
-        GameObject obj = Instantiate(shot, transform.position + transform.up * 1.2f, Quaternion.identity) as GameObject;
+        GameObject obj = ObjectPool.instance.GetObject(shot);
+        obj.transform.position = transform.position + transform.up * 1.2f;
 
         obj.GetComponent<Shot>().AddVelocity(shotVelocity);
     }
 
-    void Die()
+    private void Die()
     {
         FindObjectOfType<GameManager>().KillPlayer();
-
 
         Destroy(gameObject);
     }

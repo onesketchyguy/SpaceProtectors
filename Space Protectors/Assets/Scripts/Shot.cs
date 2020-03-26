@@ -6,13 +6,11 @@ public class Shot : MonoBehaviour
 
     public AudioClip shotSound;
 
-    public GameObject ExplosionEffect;
-
     private void FixedUpdate()
     {
         if (OffScreen())
         {
-            Destroy(gameObject);
+            ObjectPool.instance.ReturnObject(gameObject);
         }
     }
 
@@ -51,8 +49,9 @@ public class Shot : MonoBehaviour
             hp.ModifyHealth(-damage);
         }
 
-        Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
+        var explosion = ObjectPool.instance.GetExplosion();
+        explosion.transform.position = transform.position;
 
-        Destroy(gameObject);
+        ObjectPool.instance.ReturnObject(gameObject);
     }
 }
